@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ludo Game</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Classic board game</p>
+          <h1>Ludo</h1>
+        </div>
+        <button id="newGameBtn" class="secondary">New Game</button>
+      </header>
+
+      <main class="game-layout">
+        <section class="board-panel">
+          <div id="gameBoard" class="game-board" aria-label="Ludo game board">
+            <div id="trackLayer"></div>
+            <div id="tokenLayer"></div>
+            <div id="messageBox" class="message-box">Welcome! Roll the dice to begin.</div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <div class="dice-panel">
+            <div id="dice" class="dice" aria-live="polite">?</div>
+            <button id="rollBtn" class="primary">Roll Dice</button>
+          </div>
+
+          <div id="playerCards" class="player-cards" aria-live="polite"></div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
