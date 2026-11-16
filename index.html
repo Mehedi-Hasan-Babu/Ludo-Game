@@ -1,41 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ludo Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10131e" />
+    <meta name="description" content="A colorful, polished local multiplayer Ludo game. Roll the dice, race your tokens home, and become the champion." />
+    <title>Ludo Royale — Roll. Race. Reign.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="app-shell">
+    <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+    <main class="app-shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">Classic board game</p>
-          <h1>Ludo</h1>
+        <a class="brand" href="#" aria-label="Ludo Royale home"><span class="brand-mark">✦</span><span>LUDO<span class="brand-light"> ROYALE</span><small>THE CLASSIC, REIMAGINED</small></span></a>
+        <div class="top-actions">
+          <button id="soundBtn" class="icon-button" type="button" aria-label="Toggle sound" title="Toggle sound">🔊</button>
+          <button id="rulesBtn" class="icon-button rules-button" type="button">ⓘ <span>How to play</span></button>
+          <button id="newGameBtn" class="new-game-button" type="button">↻ <span>New game</span></button>
         </div>
-        <button id="newGameBtn" class="secondary">New Game</button>
       </header>
 
-      <main class="game-layout">
-        <section class="board-panel">
+      <section class="intro-row">
+        <div><p class="eyebrow"><span class="live-dot"></span> THE TABLE IS YOURS</p><h1>Roll. Race. <span>Reign.</span></h1><p class="subhead">A little luck. A lot of glory. Bring all four tokens home to win.</p></div>
+        <div class="setup-controls">
+          <label class="select-wrap"><span>PLAYERS</span><select id="playerCount"><option value="2">2 players</option><option value="3">3 players</option><option value="4" selected>4 players</option></select></label>
+          <label class="computer-toggle"><input id="computerMode" type="checkbox"><span class="toggle-track"></span><span>Play vs CPU</span></label>
+        </div>
+      </section>
+
+      <section class="game-layout">
+        <div class="board-card">
+          <div class="board-topline"><div class="game-status"><span class="status-pulse"></span><span id="statusLabel">YOUR TABLE</span></div><div class="round-label">ROUND <b id="roundNumber">01</b></div></div>
           <div id="gameBoard" class="game-board" aria-label="Ludo game board">
-            <div id="trackLayer"></div>
-            <div id="tokenLayer"></div>
-            <div id="messageBox" class="message-box">Welcome! Roll the dice to begin.</div>
+            <div class="board-decoration"></div>
+            <div id="trackLayer" aria-hidden="true"></div><div id="tokenLayer"></div>
+            <div class="board-center"><span>✦</span><small>HOME</small></div>
           </div>
-        </section>
+          <div class="board-caption"><span class="caption-star">✦</span><span id="messageBox" aria-live="polite">Red's turn. Roll the dice to begin!</span></div>
+        </div>
 
-        <aside class="sidebar">
-          <div class="dice-panel">
-            <div id="dice" class="dice" aria-live="polite">?</div>
-            <button id="rollBtn" class="primary">Roll Dice</button>
-          </div>
+        <aside class="game-sidebar">
+          <section class="turn-card"><div class="section-heading"><div><p class="eyebrow">IT'S YOUR MOVE</p><h2 id="turnTitle">Red's turn</h2></div><span id="turnBadge" class="turn-badge red">RED</span></div>
+            <div class="dice-stage"><div id="dice" class="dice" role="img" aria-label="Dice not rolled yet"><span>?</span></div><span class="dice-glow"></span></div>
+            <button id="rollBtn" class="roll-button" type="button"><span class="roll-icon">⚄</span><span id="rollLabel">Roll the dice</span><span class="button-arrow">→</span></button>
+            <p class="hint" id="rollHint">Need a six to bring a token out.</p>
+          </section>
 
-          <div id="playerCards" class="player-cards" aria-live="polite"></div>
+          <section class="players-section"><div class="section-heading compact"><div><p class="eyebrow">AT THE TABLE</p><h3>Players <span id="playerCountLabel">04</span></h3></div><span class="online-label"><i></i> READY</span></div><div id="playerCards" class="player-cards" aria-live="polite"></div></section>
+
+          <section class="activity-section"><div class="section-heading compact"><div><p class="eyebrow">THE PLAY-BY-PLAY</p><h3>Recent moves</h3></div><span class="activity-spark">✦</span></div><ol id="moveHistory" class="move-history"><li class="empty-history">Your first move is waiting.</li></ol></section>
+          <div class="sidebar-footer"><span>✦</span> GOOD LUCK, HAVE FUN <span>✦</span></div>
         </aside>
-      </main>
-    </div>
+      </section>
+      <footer class="page-footer"><span>MADE FOR GAME NIGHT</span><span>✦ &nbsp; LUDO ROYALE &nbsp; ✦</span><span>ONE MORE ROUND?</span></footer>
+    </main>
 
+    <dialog id="rulesDialog" class="rules-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button><p class="eyebrow">THE QUICK GUIDE</p><h2>How to play</h2><ul><li><b>Roll a six</b> to bring a token out of your yard.</li><li><b>Choose a glowing token</b> to move it by the number rolled.</li><li>Land on an opponent to send them back—unless they're on a <b>safe star</b>.</li><li>Reach the center with an <b>exact roll</b>. First to bring all four tokens home wins!</li><li>Roll a six or capture a rival to earn an extra turn.</li></ul><button class="roll-button dialog-done">Let's play <span>→</span></button></form></dialog>
+    <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
     <script src="./script.js"></script>
   </body>
 </html>
